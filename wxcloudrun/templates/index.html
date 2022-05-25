@@ -1,132 +1,127 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <link
-      rel="shortcut icon"
-      href="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-      mce_href="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-      type="image/x-icon"
-    />
-    <meta name="viewport" content="width=650,user-scalable=no" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-      crossorigin="anonymous"
-    />
-    <title>欢迎使用微信云托管</title>
-    <style>
-      .title-logo {
-        height: 80px;
-      }
-      .container {
-        margin-top: 100px;
-      }
-      .count-button {
-        width: 132px;
-        box-sizing: border-box;
-        margin: 16px 8px;
-      }
-      .count-number {
-        font-size: 18px;
-        font-weight: bolder;
-        margin: 0 8px;
-      }
-      .count-text {
-        width: 280px;
-        display: flex;
-        margin: 0 auto;
-        text-align: left;
-        height: 40px;
-        border: 1px solid rgba(0, 0, 0, 0.1);
-        border-radius: 4px;
-        line-height: 40px;
-        padding: 0 12px;
-      }
-      .quote {
-        font-size: 12px;
-      }
-      .qrcode {
-        height: 180px;
-        display: block;
-        margin: 0 auto;
-      }
-      .title {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-      }
-    </style>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"
+    integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+  <title>山姆</title>
   </head>
 
-  <body>
-    <div class="container">
-      <div class="title">
-        <img
-          class="title-logo"
-          src="https://static-index-4gtuqm3bfa95c963-1304825656.tcloudbaseapp.com/official-website/favicon.svg"
-        />
-        <h1 style="display: inline; margin-bottom: 48px;">欢迎使用微信云托管</h1>
+<body>
+<br><br>
+<ul class="nav nav-tabs justify-content-center">
+  <li class="nav-item">
+    <a class="nav-link active" href="/">首页</a>
+  </li>
+
+</ul>
+<br><br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-2">
       </div>
-      <div style="text-align: center">
-        <p class="count-text">当前计数：<span class="count-number"></span></p>
-        <div
-          style="display: flex; justify-content: center; margin-bottom: 80px"
-        >
-          <a class="btn btn-success btn-lg count-button" style="background: #07C160; border: 0;" onclick="set('inc')"
-            >计数+1</a
-          >
+      <div class="col-8 mb-3">
+        <div>
+          <h1>教程</h1>
           <a
-            class="btn btn-outline-success btn-lg count-button"
-            style="background: rgba(0,0,0,0.03); color: #07C160; border: 0;"
-            onclick="set('clear')"
-            >清零</a
-          >
+            href="https://docs.qq.com/doc/p/0d709065bada17a5142ae50cdeb76cb674a6cc90?dver=3.0.27554990">https://docs.qq.com/doc/p/0d709065bada17a5142ae50cdeb76cb674a6cc90?dver=3.0.27554990</a>
+          <br><br>
+          <div class="mb-6">
+            <div class="mb-6">
+              <h3>返回结果</h3>
+              <div>
+                {{msg}}
+                <br><br><br>
+              </div>
+            </div>
+            <div class="mb-6">
+              <h3>添加用户和监控地址</h3>
+              <form action="/addUser" method="post" enctype="multipart/form-data" id="form">
+                <label for="dc" class="form-label">选择街区</label>
+                <select class="form-select form-select-lg" aria-label=".form-select-lg example" id="location"
+                  name="location" required>
+                  <option value="" selected>选择街区</option>
+                  {% for location in locations %}
+                  <option value="{{location}}">{{ location }}
+                    {% endfor %}
+                </select>
+                <br>
+
+
+                <div class="mb-6">
+                  <label for="id" class="form-label">id</label>
+                  例如bark里面的url：https://api.day.app/j56UZtSZWy3Cxxxg8PoktA/这里改成你自己的推送内容,则填写j56UZtSZWy3Cxxxg8PoktA不要多空格
+                  <input type="text" class="form-control" id="id" name="id" required
+                    placeholder="j56UZtSZWy3Cxxxg8PoktA">
+                </div>
+                <br>
+                <div class="mb-6">
+                  <button type="submit" class="btn btn-primary" id="submit">添加用户</button>
+
+                </div>
+              </form>
+            </div>
+            <br><br>
+            <div class="mb-6">
+              <h3>查询我的监控地址</h3>
+              <form action="/getUser" method="post" enctype="multipart/form-data" id="form">
+                <div class="mb-3">
+                  <div class="mb-3">
+                    <label for="id" class="form-label">id</label>
+                    例如bark里面的url：https://api.day.app/j56UZtSZWy3Cxxxg8PoktA/这里改成你自己的推送内容,则填写j56UZtSZWy3Cxxxg8PoktA不要多空格
+                    <input type="text" class="form-control" id="id" name="id" required
+                      placeholder="j56UZtSZWy3Cxxxg8PoktA">
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="submit">查询</button>
+              </form>
+            </div>
+            <br><br>
+            <div class="mb-6">
+              <h3>删除用户</h3>
+              <form action="/delUser" method="post" enctype="multipart/form-data" id="form">
+                <div class="mb-3">
+                  <div class="mb-3">
+                    <label for="id" class="form-label">id</label>
+                    例如bark里面的url：https://api.day.app/j56UZtSZWy3Cxxxg8PoktA/这里改成你自己的推送内容,则填写j56UZtSZWy3Cxxxg8PoktA不要多空格
+                    <input type="text" class="form-control" id="id" name="id" required
+                      placeholder="j56UZtSZWy3Cxxxg8PoktA">
+                  </div>
+                  <button type="submit" class="btn btn-primary" id="submit">删除用户</button>
+              </form>
+            </div>
+          </div>
+          <div class="col col-2">
+          </div>
         </div>
-        <small
-          class="text-black-50"
-          style="display: flex; justify-content: center; margin-bottom: 16px"
-          >扫码加入微信云托管用户群</small
-        >
-        <img
-          class="qrcode middle"
-          src="https://qcloudimg.tencent-cloud.cn/raw/89b46988d3cd73d8a56e76a1b82bb377.png"
-        />
+        <!-- <div class="mb-3">
+                <h3>删除user</h3>
+                <form action="/delUser" method="post" enctype="multipart/form-data" id="form">
+                    <div class="mb-3">
+                        <label for="dc" class="form-label">选择dc</label>
+                        <select class="form-select form-select-lg" aria-label=".form-select-lg example" id="dc"
+                            name="dc" required>
+                            <option value="1" selected>选择dc</option>
+                            {% for location in locations %}
+                            <option value="{{location}}">{{ location }}
+                                {% endfor %}
+                        </select>
+                        <br>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">id</label>
+                            <input type="text" class="form-control" id="id" name="id" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submit">删除user</button>
+                        </form>
+                        </div> -->
+                        <br><br>
+
       </div>
     </div>
-  </body>
-  <script src="https://mat1.gtimg.com/www/asset/lib/jquery/jquery/jquery-1.11.1.min.js"></script>
-  <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"
-  ></script>
-  <script>
-    init();
-    function init() {
-      $.ajax("/api/count", {
-        method: "get",
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          $(".count-number").html(res.data);
-        }
-      });
-    }
-    function set(action) {
-      $.ajax("/api/count", {
-        method: "POST",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify({
-          action: action,
-        }),
-      }).done(function (res) {
-        if (res && res.data !== undefined) {
-          $(".count-number").html(res.data);
-        }
-      });
-    }
-  </script>
+    <br><br>
+
+</body>
+
 </html>
