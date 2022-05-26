@@ -241,7 +241,7 @@ def addUserController():
         id = result['id']
         qu = location.split('-')[0]
         jie = location.split('-')[1]
-        ip = request.remote_addr
+        ip = request.environ['REMOTE_ADDR']
         print(ip)
         addUser(qu, jie, id, ip)
         return render_template('index.html', locations=locations, msg='添加成功')
