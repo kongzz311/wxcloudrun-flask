@@ -241,7 +241,13 @@ def addUserController():
         id = result['id']
         qu = location.split('-')[0]
         jie = location.split('-')[1]
-        ip = request.environ['REMOTE_ADDR']
+        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+            ip = request.environ['REMOTE_ADDR']
+            print(request.environ['REMOTE_ADDR'])
+        else:
+            ip = request.environ['HTTP_X_FORWARDED_FOR']
+            print(request.environ['HTTP_X_FORWARDED_FOR'])
+
         print(ip)
         addUser(qu, jie, id, ip)
         return render_template('index.html', locations=locations, msg='添加成功')
@@ -256,7 +262,7 @@ def getUserController():
         id = result['id']
         data = getUser(id)
         msg = ''
-        ip = request.remote_addr
+        ip = request.environ['REMOTE_ADDR']
         print(ip)
         if data is None:
             msg = '没有查询到'
