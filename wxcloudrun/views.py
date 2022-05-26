@@ -264,7 +264,7 @@ def getUserController():
         msg = ''
         ip = request.environ['REMOTE_ADDR']
         print(ip)
-        if data is None:
+        if data is None or data.get('del', True) is True:
             msg = '没有查询到'
         else:
             msg = '位置是：'+data['qu']+'-'+data['jie']
@@ -280,7 +280,7 @@ def delUserController():
         data = delUser(id)
         print(data)
         msg = ''
-        if data is None:
+        if data is None or data.get('del', True) is True:
             msg = '数据库中无此id'
         else:
             msg = '删除成功'

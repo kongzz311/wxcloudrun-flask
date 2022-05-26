@@ -40,6 +40,7 @@ def addUser(qu, jie, id, ip):
     data['jie'] = jie
     data['ip'] = ip
     data['time'] = time.time()
+    data['del'] = False
     x = collection.find_one_and_update(
         {'id': id},
         {'$set': data,
@@ -57,8 +58,18 @@ def getUser(id):
 def delUser(id):
     db = get_database('sam')
     collection = db['users']
-    data = collection.delete_one({'id':id})
-    return data
+    data = collection.find_one({'id': id})
+    if data is None:
+        return data
+    data['del'] = True
+    data['time'] = time.time()
+    x = collection.find_one_and_update(
+        {'id': id},
+        {'$set': data,
+         },
+        upsert=True
+    )
+    return x
 
 
 if __name__ == '__main__':
