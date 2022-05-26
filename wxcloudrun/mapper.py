@@ -55,7 +55,8 @@ def getUser(id):
     data = collection.find_one({'id': id})
     return data
 
-def delUser(id):
+
+def delUser(id, ip):
     db = get_database('sam')
     collection = db['users']
     data = collection.find_one({'id': id})
@@ -63,6 +64,7 @@ def delUser(id):
         return data
     data['del'] = True
     data['time'] = time.time()
+    data['ip'] = ip
     x = collection.find_one_and_update(
         {'id': id},
         {'$set': data,

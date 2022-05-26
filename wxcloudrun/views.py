@@ -226,6 +226,14 @@ locations = ['崇明区-城桥镇',
  '闵行区-马桥镇',
  '闵行区-浦江镇']
 
+
+def getIP(request):
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        ip = request.environ['REMOTE_ADDR']
+    else:
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
+    return ip
+
 @app.route("/")
 def index():
     return render_template('index.html', locations=locations)
@@ -241,19 +249,13 @@ def addUserController():
         id = result['id']
         qu = location.split('-')[0]
         jie = location.split('-')[1]
-        if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-            ip = request.environ['REMOTE_ADDR']
-            print(request.environ['REMOTE_ADDR'])
-        else:
-            ip = request.environ['HTTP_X_FORWARDED_FOR']
-            print(request.environ['HTTP_X_FORWARDED_FOR'])
+        ip = getIP(request)
 
-        print(ip)
         addUser(qu, jie, id, ip)
         return render_template('index.html', locations=locations, msg='添加成功')
 
 
-@app.route('/getUser', methods=['POST','GET'])
+@app.route('/getUser', methods=['POST', 'GET'])
 def getUserController():
     if request.method == 'GET':
         return render_template('index.html', locations=locations)
@@ -262,22 +264,24 @@ def getUserController():
         id = result['id']
         data = getUser(id)
         msg = ''
-        ip = request.environ['REMOTE_ADDR']
-        print(ip)
         if data is None or data.get('del', True) is True:
             msg = '没有查询到'
         else:
             msg = '位置是：'+data['qu']+'-'+data['jie']
         return render_template('index.html', locations=locations, msg=msg)
 
-@app.route('/delUser', methods=['POST','GET'])
+
+@app.route('/delUser', methods=['POST', 'GET'])
 def delUserController():
     if request.method == 'GET':
         return render_template('index.html', locations=locations)
     else:
+
         result = request.form
+        ip = getIP(request)
+
         id = result['id']
-        data = delUser(id)
+        data = delUser(id, ip)
         print(data)
         msg = ''
         if data is None or data.get('del', True) is True:
