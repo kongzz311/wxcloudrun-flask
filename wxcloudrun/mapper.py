@@ -20,7 +20,16 @@ def get_database(db_name):
     return client[db_name]
 
 
+def getBlackList(ip):
+    db = get_database('sam')
+    collection = db['blackList']
+    data = collection.find_one({'ip': ip})
+    return data
+
 def addUser(qu, jie, id, ip):
+    if getBlackList(ip) is not None:
+        print(f"ip blackList: {ip}")
+        return
     db = get_database('sam')
     collection = db['users']
     data = collection.find_one({'id': id})
@@ -50,3 +59,7 @@ def delUser(id):
     collection = db['users']
     data = collection.delete_one({'id':id})
     return data
+
+
+if __name__ == '__main__':
+    print(getBlackList("192.168.3.201"))
