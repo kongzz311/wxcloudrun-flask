@@ -1,3 +1,5 @@
+import time
+
 
 def get_database(db_name):
     from pymongo import MongoClient
@@ -17,7 +19,8 @@ def get_database(db_name):
     # Create the database for our example (we will use the same database throughout the tutorial
     return client[db_name]
 
-def addUser(qu,jie,id):
+
+def addUser(qu, jie, id, ip):
     db = get_database('sam')
     collection = db['users']
     data = collection.find_one({'id': id})
@@ -25,7 +28,9 @@ def addUser(qu,jie,id):
         data = {}
         data['id'] = id
     data['qu'] = qu
-    data['jie'] = jie        
+    data['jie'] = jie
+    data['ip'] = ip
+    data['time'] = time.time()
     x = collection.find_one_and_update(
         {'id': id},
         {'$set': data,

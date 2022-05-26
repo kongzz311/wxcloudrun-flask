@@ -241,7 +241,9 @@ def addUserController():
         id = result['id']
         qu = location.split('-')[0]
         jie = location.split('-')[1]
-        addUser(qu, jie, id)
+        ip = request.remote_addr
+        print(ip)
+        addUser(qu, jie, id, ip)
         return render_template('index.html', locations=locations, msg='添加成功')
 
 
@@ -254,6 +256,8 @@ def getUserController():
         id = result['id']
         data = getUser(id)
         msg = ''
+        ip = request.remote_addr
+        print(ip)
         if data is None:
             msg = '没有查询到'
         else:
